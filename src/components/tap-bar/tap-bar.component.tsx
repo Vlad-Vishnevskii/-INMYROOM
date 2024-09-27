@@ -1,14 +1,21 @@
 import React from 'react';
 import { useTapBarItems } from './tap-bar.hooks';
+import { NavigationButton } from '../navigation-button';
+import classNames from 'classnames';
 import styles from './style.module.scss';
 
 export const TapBar: React.FC = () => {
-  const { tapBarItems } = useTapBarItems();
+  const { tapBarItems, tapBarVisible } = useTapBarItems();
+
   return (
-    <div className={styles.tapBar}>
+    <div
+      className={classNames(styles.tapBar, {
+        [styles.tapBar_hiiden]: !tapBarVisible,
+      })}
+    >
       <nav className={styles.tapBar_navigation}>
         {tapBarItems.map(button => (
-          <button>{button.icon}</button>
+          <NavigationButton key={button.id} {...button} />
         ))}
       </nav>
     </div>

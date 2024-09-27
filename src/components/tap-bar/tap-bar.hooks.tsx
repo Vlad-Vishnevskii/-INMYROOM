@@ -1,23 +1,35 @@
-import React, { useCallback } from 'react';
-import { ShareIcon } from '../icons';
+import { useState, useEffect, useRef } from 'react';
+import { ShareIcon, TopIcon, CommentIcon, LikeIcon } from '../icons';
 
 export const useTapBarItems = () => {
-  const handleShareClick = async () => {
-    const pageUrl = window.location.href;
+  const [commentsCount, setCommentsCount] = useState(7);
+  const [likesCount, setLikesCount] = useState(28);
+  const [tapBarVisible, setTapBarVisible] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const handleCommentClick = () => {
+    setCommentsCount(prev => prev + 1);
+  };
+
+  const handleLikeClick = () => {
+    setLikesCount(prev => prev + 1);
+  };
+
+  const handleShareClick = async () => {
     if (navigator.share) {
       try {
         await navigator.share({
           title: document.title,
           text: 'Поделиться этой страницей:',
-          url: pageUrl,
+          url: window.location.href,
         });
       } catch (error) {
         alert('Ошибка при шаринге');
       }
     } else if (navigator.clipboard) {
       try {
-        await navigator.clipboard.writeText(pageUrl);
+        await navigator.clipboard.writeText(window.location.href);
         alert('Ссылка скопирована в буфер обмена!');
       } catch (error) {
         alert('Ошибка при копировании ссылки');
@@ -27,34 +39,76 @@ export const useTapBarItems = () => {
     }
   };
 
+  const handleTopClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const getTapBarItems = () => {
     return [
       {
-        onClick: handleShareClick(),
+        onClick: handleShareClick,
         icon: <ShareIcon />,
         id: 0,
       },
       {
-        icon: <ShareIcon />,
-        onClick: () => {},
+        icon: <TopIcon />,
+        onClick: handleTopClick,
         id: 1,
       },
       {
-        icon: <ShareIcon />,
-        onClick: () => {},
-        count: 7,
+        icon: <CommentIcon />,
+        onClick: handleCommentClick,
+        count: commentsCount,
         id: 2,
       },
       {
-        icon: <ShareIcon />,
-        onClick: () => {},
-        count: 28,
+        icon: <LikeIcon />,
+        onClick: handleLikeClick,
+        count: likesCount,
         id: 3,
       },
     ];
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollingDiff = window.scrollY - scrollPosition;
+
+      if (window.scrollY > 200 && tapBarVisible) {
+        setTapBarVisible(false);
+      }
+
+      if (scrollingDiff < 0 && !tapBarVisible) {
+        setTapBarVisible(true);
+      }
+
+      setScrollPosition(window.scrollY);
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        if (!tapBarVisible) {
+          setTapBarVisible(true);
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+        }
+      }, 1000);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollPosition, tapBarVisible]);
+
   return {
     tapBarItems: getTapBarItems(),
+    tapBarVisible,
   };
 };
