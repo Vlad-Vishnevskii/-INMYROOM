@@ -1,0 +1,36 @@
+:root {
+  // specific variables
+  --safe-area-inset-bottom: 0px;
+
+  // Older iOS browsers
+  @supports (-webkit-touch-callout: none) {
+    --safe-area-inset-bottom: 34px;
+  }
+
+  // Browsers which partially support CSS Environment variables (iOS 11.0-11.2).
+  @supports (padding: constant(safe-area-inset-bottom)) {
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+  }
+
+  // Browsers which fully support CSS Environment variables (iOS 11.2+).
+  @supports (padding: env(safe-area-inset-bottom)) {
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+.tapBar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.95);
+
+  &_navigation {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    width: 100%;
+    height: calc(58px + var(--safe-area-inset-bottom));
+  }
+}

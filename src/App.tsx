@@ -1,12 +1,13 @@
 import React from 'react';
-import './App.css';
+import { TapBar } from './components';
+import styles from './style.module.scss';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-     
+    <div className={styles.app}>
+      <TapBar />
     </div>
   );
-}
+};
 
 export default App;
