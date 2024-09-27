@@ -36,6 +36,7 @@
     grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
     width: 100%;
     height: var(--tap-bar-height);
+    padding: 0 20px;
   }
 
   &_hiiden {

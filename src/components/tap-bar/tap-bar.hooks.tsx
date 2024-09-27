@@ -21,7 +21,7 @@ export const useTapBarItems = () => {
       try {
         await navigator.share({
           title: document.title,
-          text: 'Поделиться этой страницей:',
+          text: 'тестовое задание на позицию frontend разработчик',
           url: window.location.href,
         });
       } catch (error) {
