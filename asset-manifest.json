@@ -1,14 +1,16 @@
 {
   "files": {
-    "main.css": "/inmyroom/static/css/main.a117336b.css",
-    "main.js": "/inmyroom/static/js/main.8126a3f2.js",
+    "main.css": "/inmyroom/static/css/main.23ac4463.css",
+    "main.js": "/inmyroom/static/js/main.26cd2450.js",
     "static/media/bg.png": "/inmyroom/static/media/bg.b8c8ce29df25e3026ed4.png",
+    "static/media/proximanova_regular.woff": "/inmyroom/static/media/proximanova_regular.ad3e633aa40eec644058.woff",
+    "static/media/proximanova_regular.woff2": "/inmyroom/static/media/proximanova_regular.2ac83e60b0d7d3c15ce6.woff2",
     "index.html": "/inmyroom/index.html",
-    "main.a117336b.css.map": "/inmyroom/static/css/main.a117336b.css.map",
-    "main.8126a3f2.js.map": "/inmyroom/static/js/main.8126a3f2.js.map"
+    "main.23ac4463.css.map": "/inmyroom/static/css/main.23ac4463.css.map",
+    "main.26cd2450.js.map": "/inmyroom/static/js/main.26cd2450.js.map"
   },
   "entrypoints": [
-    "static/css/main.a117336b.css",
-    "static/js/main.8126a3f2.js"
+    "static/css/main.23ac4463.css",
+    "static/js/main.26cd2450.js"
   ]
 }
