@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/inmyroom/static/css/main.ec3ff4cd.css",
+    "main.js": "/inmyroom/static/js/main.d328bcf4.js",
+    "static/media/bg.png": "/inmyroom/static/media/bg.b8c8ce29df25e3026ed4.png",
+    "index.html": "/inmyroom/index.html",
+    "main.ec3ff4cd.css.map": "/inmyroom/static/css/main.ec3ff4cd.css.map",
+    "main.d328bcf4.js.map": "/inmyroom/static/js/main.d328bcf4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ec3ff4cd.css",
+    "static/js/main.d328bcf4.js"
+  ]
+}
