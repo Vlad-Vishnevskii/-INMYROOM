@@ -75,17 +75,21 @@ export const useTapBarItems = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollingDiff = window.scrollY - scrollPosition;
+      setScrollPosition(window.scrollY);
 
-      if (window.scrollY > 200 && tapBarVisible) {
-        setTapBarVisible(false);
+      const isDownScrolling = window.scrollY > scrollPosition;
+      const isTopScrolling = window.scrollY < scrollPosition;
+      const isStopScrolling = window.scrollY === scrollPosition;
+
+      if (window.scrollY > 200 && tapBarVisible && isDownScrolling) {
+        if (!isTopScrolling) {
+          setTapBarVisible(false);
+        }
       }
 
-      if (scrollingDiff < 0 && !tapBarVisible) {
+      if (isTopScrolling && !tapBarVisible) {
         setTapBarVisible(true);
       }
-
-      setScrollPosition(window.scrollY);
 
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -99,6 +103,10 @@ export const useTapBarItems = () => {
           }
         }
       }, 1000);
+
+      if (isStopScrolling) {
+        setTapBarVisible(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
